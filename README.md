@@ -1,6 +1,6 @@
 # ckanext-wascal
 
-![Tests](https://github.com/dianda-caleb/ckanext-wascal/actions/workflows/test.yml/badge.svg)
+[![Tests](https://github.com/dianda-caleb/ckanext-wascal/actions/workflows/test.yml/badge.svg)](https://github.com/dianda-caleb/ckanext-wascal/actions)
 
 
 **Tailor-made CKAN extension for a WASCAL data portal** (West African Science Service Centre on Climate Change and Adapted Land Use) — a regional research network covering several West African countries.

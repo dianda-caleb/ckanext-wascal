@@ -49,7 +49,7 @@ To temporary patch the CKAN configuration for the duration of a test you can use
 """
 
 import pytest
-from ckan.tests.helpers import plugin_loaded
+from ckan.plugins import plugin_loaded
 import ckanext.wascal.plugin as plugin
 
 

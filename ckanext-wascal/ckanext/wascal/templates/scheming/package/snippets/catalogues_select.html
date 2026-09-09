@@ -1,0 +1,32 @@
+{% set available_catalogues = h.catalogue_list() %}
+<div class="control-group" style="margin-bottom: 10px;">
+  <label class="control-label" for="field-catalogues">{{ _("Catalogues") }}</label>
+  <div class="controls">
+    {% if available_catalogues %}
+      <select id="field-catalogues" name="catalogue_ids"
+              multiple="multiple" data-module="autocomplete"
+              data-module-tags="" data-module-multiple="true"
+              style="width:100%">
+        {% set current_ids = data.get('catalogue_ids', []) %}
+        {% for cat in available_catalogues %}
+          <option value="{{ cat.id }}"
+            {% if cat.id in current_ids %}selected="selected"{% endif %}>
+            {{ cat.title }}
+          </option>
+        {% endfor %}
+      </select>
+      <span class="help-block">
+        {{ _('Select the catalogue(s) this dataset belongs to.') }}
+        <a href="/catalogue/new" target="_blank">
+          <i class="fa fa-plus"></i> {{ _('Create a new catalogue') }}
+        </a>
+      </span>
+    {% else %}
+      <p class="help-block text-warning">
+        <i class="fa fa-exclamation-triangle"></i>
+        {{ _('No catalogues available yet.') }}
+        <a href="/catalogue/new" target="_blank">{{ _('Create one first.') }}</a>
+      </p>
+    {% endif %}
+  </div>
+</div>

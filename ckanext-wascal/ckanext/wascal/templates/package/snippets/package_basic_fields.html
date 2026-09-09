@@ -1,0 +1,83 @@
+{% ckan_extends %}
+
+
+
+{% block package_basic_fields_custom %}
+
+{# ---- Topics ---- #}
+<div class="control-group" style="margin-bottom: 10px;">
+  <label class="control-label" for="field-topic">{{ _("Topic") }}</label>
+  <div class="controls">
+    <select id="field-topic" name="topic" data-module="autocomplete">
+      {% for topic in h.topics_options  %}
+        <option value="{{ topic }}" {% if topic in data.get('topic', []) %}selected="selected"{% endif %}>{{ topic }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+{# ---- Countries ---- #}
+<div class="control-group" style="margin-bottom: 10px;">
+  <label class="control-label" for="field-country">{{ _("Country") }}</label>
+  <div class="controls">
+    <select id="field-country" name="country" data-module="autocomplete">
+      {% for country in h.country_options  %}
+        <option value="{{ country }}" {% if country in data.get('country', []) %}selected="selected"{% endif %}>{{ country }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+
+{# ---- Catalogues (fourni par ckanext-fairfedonto) ---- #}
+<div class="control-group" style="margin-bottom: 10px;">
+  <label class="control-label" for="field-catalogues">{{ _("Catalogues") }}</label>
+  <div class="controls">
+    {% set available_catalogues = h.catalogue_list() %}
+    {% if available_catalogues %}
+      <select id="field-catalogues" name="catalogue_ids"
+              multiple="multiple" data-module="autocomplete" style="width:100%">
+        {% set current_ids = data.get('catalogue_ids', []) %}
+        {% for cat in available_catalogues %}
+          <option value="{{ cat.id }}"
+            {% if cat.id in current_ids %}selected="selected"{% endif %}>
+            {{ cat.title }}
+          </option>
+        {% endfor %}
+      </select>
+      <span class="help-block">
+        {{ _('Select the catalogue(s) this dataset belongs to.') }}
+        <a href="/catalogue/new" target="_blank">
+          <i class="fa fa-plus"></i> {{ _('Create a new catalogue') }}
+        </a>
+      </span>
+    {% else %}
+      <p class="help-block text-warning">
+        <i class="fa fa-exclamation-triangle"></i>
+        {{ _('No catalogues available yet.') }}
+        <a href="/catalogue/new" target="_blank">{{ _('Create one first.') }}</a>
+      </p>
+    {% endif %}
+  </div>
+</div>
+
+
+
+
+{# ---- Champs responsables ---- #}
+
+{{ form.input('data_provider', label=_('Data Provider'), id='field-data_provider', placeholder=_('Data Provider'), value=data.data_provider, error=errors.data_provider, classes=['control-medium'], is_required=true) }}
+
+{{ form.input('data_publisher', label=_('Data Publisher'), id='field-data_publisher', placeholder=_('Data Publisher'), value=data.data_publisher, error=errors.data_publisher, classes=['control-medium'], is_required=true) }}
+
+{{ form.input('data_funder', label=_('Data Funder'), id='field-data_funder', placeholder=_('Data Funder'), value=data.data_funder, error=errors.data_funder, classes=['control-medium']) }}
+
+{{ form.input('data_owner', label=_('Data Owner'), id='field-data_owner', placeholder=_('Data Owner'), value=data.data_owner, error=errors.data_owner, classes=['control-medium']) }}
+
+{{ form.input('data_author', label=_('Data Author'), id='field-data_author', placeholder=_('Data Author'), value=data.data_author, error=errors.data_author, classes=['control-medium'], is_required=true) }}
+
+{{ form.input('data_scientist', label=_('Data Scientist'), id='field-data_scientist', placeholder=_('Data Scientist'), value=data.data_scientist, error=errors.data_scientist, classes=['control-medium']) }}
+
+{{ form.input('data_disseminator', label=_('Data disseminator'), id='field-data_disseminator', placeholder=_('Data disseminator'), value=data.data_disseminator, error=errors.data_disseminator, classes=['control-medium']) }}
+
+{% endblock %}

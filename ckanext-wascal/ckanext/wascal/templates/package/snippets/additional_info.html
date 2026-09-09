@@ -1,0 +1,79 @@
+{% ckan_extends %}
+
+{% block extras %}
+<!-- jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj -->
+  {% if pkg_dict.topic %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Topic") }}</th>
+    <td class="dataset-details">{{ pkg_dict.topic }}</td>
+  </tr>
+  {% endif %}
+
+  {% if pkg_dict.country %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Country") }}</th>
+    <td class="dataset-details">{{ pkg_dict.country }}</td>
+  </tr>
+  {% endif %}
+
+  {% if pkg_dict.data_provider %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Data Provider") }}</th>
+    <td class="dataset-details">{{ pkg_dict.data_provider }}</td>
+  </tr>
+  {% endif %}
+
+  {% if pkg_dict.data_publisher %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Data Publisher") }}</th>
+    <td class="dataset-details">{{ pkg_dict.data_publisher }}</td>
+  </tr>
+  {% endif %}
+
+  {% if pkg_dict.data_funder %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Data Funder") }}</th>
+    <td class="dataset-details">{{ pkg_dict.data_funder }}</td>
+  </tr>
+  {% endif %}
+
+  {% if pkg_dict.data_owner %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Data Owner") }}</th>
+    <td class="dataset-details">{{ pkg_dict.data_owner }}</td>
+  </tr>
+  {% endif %}
+
+  {% if pkg_dict.data_author %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Data Author") }}</th>
+    <td class="dataset-details">{{ pkg_dict.data_author }}</td>
+  </tr>
+  {% endif %}
+
+  {% if pkg_dict.data_scientist %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Data Scientist") }}</th>
+    <td class="dataset-details">{{ pkg_dict.data_scientist }}</td>
+  </tr>
+  {% endif %}
+
+  {% if pkg_dict.data_disseminator %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Data Disseminator") }}</th>
+    <td class="dataset-details">{{ pkg_dict.data_disseminator }}</td>
+  </tr>
+  {% endif %}
+
+  {% if pkg_dict.emma %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Emman field") }}</th>
+    <td class="dataset-details">{{ pkg_dict.emma }}</td>
+  </tr>
+  {% endif %}
+  <tr>
+    <th scope="row" class="dataset-label">{{ _("Emman field j") }}</th>
+    <td class="dataset-details">{{ pkg_dict.emma }}</td>
+  </tr>
+<!-- gggggggggggggggggggggggggggggggggggggggggggggggggg -->
+{% endblock %}

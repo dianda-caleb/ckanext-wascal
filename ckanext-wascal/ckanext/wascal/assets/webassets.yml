@@ -1,0 +1,14 @@
+# wascal-js:
+#   filter: rjsmin
+#   output: ckanext-wascal/%(version)s-wascal.js
+#   contents:
+#     - js/wascal.js
+#   extra:
+#     preload:
+#       - base/main
+
+# wascal-css:
+#   filter: cssrewrite
+#   output: ckanext-wascal/%(version)s-wascal.css
+#   contents:
+#     - css/wascal.css

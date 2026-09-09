@@ -1,0 +1,249 @@
+
+<div class="containerm">
+  <div style="margin-top: 10px;" class="d-flex flex-row">
+    <a href="{{ h.url_for('home.index') }}">
+        <img style="margin: 1%;" src="/WADIREP_logo.png" alt="Home" />
+    </a>
+  
+    <div class="d-flex flex-column">
+        <div class="p-2 flex-grow-1" style="font-weight: bold; font-size: larger;">
+            WASCAL Scientific Research Data Catalog
+        </div>
+        <div class="p-2" style="font-weight: bold; font-size: smaller;">
+            Bridging data providers, users and managers.<br>
+            Filling up data gap in West Africa.<br>
+            Combatting Climate Change. Together!<br>
+        </div>
+    </div>
+  </div>
+  
+  {% block header_account %}
+    <div class="account-masthead">
+      <div class="container">
+        {% block header_account_container_content %} 
+          {% if c.userobj %}
+            <div class="account avatar authed" data-module="me" data-me="{{ c.userobj.id }}">
+              <ul class="list-unstyled">
+                {% block header_account_logged %} 
+                    {% if c.userobj.sysadmin %}
+                    <li>
+                      <a href="{{ h.url_for('admin.index') }}" title="{{ _('Sysadmin settings') }}">
+                        <i class="fa fa-gavel" aria-hidden="true"></i>
+                        <span class="text">{{ _('Admin') }}</span>
+                      </a>
+                    </li>
+                    {% endif %}
+                    {% block header_account_profile %}
+                    <li>
+                      <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">
+                        {{ h.user_image((c.user if c and c.user else ''), size=22) }}
+                        <span class="username">{{ c.userobj.display_name }}</span>
+                      </a>
+                    </li>
+                    {% endblock %}
+                    {% block header_dashboard %}
+                      <li>
+                        <a href="{{ h.url_for('dashboard.datasets') }}" title="{{ _("View dashboard") }}">
+                          <i class="fa fa-tachometer" aria-hidden="true"></i>
+                          <span class="text">{{ _('Dashboard') }}</span>
+                        </a>
+                      </li>
+                    {% endblock %}
+                    {% block header_account_settings_link %}
+                    <li>
+                      <a href="{{ h.url_for('user.edit', id=c.userobj.name) }}" title="{{ _('Profile settings') }}">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                        <span class="text">{{ _('Profile settings') }}</span>
+                      </a>
+                    </li>
+                    {% endblock %} 
+                    {% block header_account_log_out_link %}
+                    <li>
+                      <a href="{{ h.url_for('user.logout') }}" title="{{ _('Log out') }}">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        <span class="text">{{ _('Log out') }}</span>
+                      </a>
+                    </li>
+                    {% endblock %} 
+                {% endblock %}
+              </ul>
+            </div>
+          {% else %}
+            <nav class="account not-authed" aria-label="{{ _('Account') }}">
+              <ul class="list-unstyled">
+                {% block header_account_notlogged %}
+                <li>{% link_for _('Log in'), named_route='user.login' %}</li>
+                {% if h.check_access('user_create') %}
+                <li>{% link_for _('Register'), named_route='user.register', class_='sub' %}</li>
+                {% endif %} {% endblock %}
+              </ul>
+            </nav>
+          {% endif %} 
+        {% endblock %}
+      </div>
+    </div>
+  {% endblock %}
+
+  <nav class="navbar navbar-expand-lg" style="background-color: #0A77BD;">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+
+                {# ---- Lien Federation (nouveau) ---- #}
+                <li class="nav-item">
+                    <a href="/federation" class="nav-link" style="color: #FFFFFF;">
+                        Federation
+                    </a>
+                </li>
+
+                {# ---- Lien Catalogue (nouveau) ---- #}
+                <li class="nav-item">
+                    <a href="/catalogue" class="nav-link" style="color: #FFFFFF;">
+                        Catalogue
+                    </a>
+                </li>
+
+
+
+
+                <li class="nav-item">
+                    <a href="{{ h.url_for('dataset.search') }}" class="nav-link active" aria-current="page" href="#"
+                        style="color: #FFFFFF;">Dataset</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ h.url_for('organization.index') }}" class="nav-link" href="#"
+                        style="color: #FFFFFF;">Organizations</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ h.url_for('group.index') }}" class="nav-link" href="#"
+                        style="color: #FFFFFF;">Groups</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog" style="color: #FFFFFF;">Stories</a>
+                </li>
+                <!--li class="nav-item">
+                    <a class="nav-link" href="#" style="color: #FFFFFF;">Dashboard</a>
+                </li-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="color: #FFFFFF;">
+                        Topics
+                    </a>
+                    <ul class="dropdown-menu" style="background-color: #0A77BD;">
+                        <li><a class="dropdown-item" href="/dataset/?topic=Climate" style="color: #FFFFFF;">Climate</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?topic=Remote+Sensing" style="color: #FFFFFF;">Remote Sensing</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?topic=Socio-economic+Data" style="color: #FFFFFF;">Socio-economic Data</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?topic=Soil" style="color: #FFFFFF;">Soil</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?topic=Topography" style="color: #FFFFFF;">Topography</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?topic=Vegetation" style="color: #FFFFFF;">Vegetation</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?topic=Weather+Conditions" style="color: #FFFFFF;">Weather Conditions</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?topic=Base+Data" style="color: #FFFFFF;">Base Data</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?topic=Administrative+Boundaries" style="color: #FFFFFF;">Administrative Boundaries</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/dataset/?topic=Farming" style="color: #FFFFFF;">Farming</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?topic=Hydrology" style="color: #FFFFFF;">Hydrology</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?topic=Land+Use" style="color: #FFFFFF;">Land Use</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="color: #FFFFFF;">
+                        WRAP 2.0
+                    </a>
+                    <ul class="dropdown-menu" style="background-color: #0A77BD;">
+                        <li><a class="dropdown-item" href="/dataset/?q=concert" style="color: #FFFFFF;">CONCERT</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?q=fluriflood" style="color: #FFFFFF;">FURIFLOOD</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?q=greengade" style="color: #FFFFFF;">GREENGADE</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?q=landsurf" style="color: #FFFFFF;">LANDSURF</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?q=migraware" style="color: #FFFFFF;">MIGRAWARE</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?q=mitra-wa" style="color: #FFFFFF;">MITRA-WA</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="color: #FFFFFF;">
+                        CICLES
+                    </a>
+                    <ul class="dropdown-menu" style="background-color: #0A77BD;">
+                        <li><a class="dropdown-item" href="/dataset/?q=Climate+Policy+and+Action&sort=score+desc%2C+metadata_modified+desc" style="color: #FFFFFF;">CPA (Climate Policy and
+                                Action)</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?q=Climate-Smart+Agriculture&sort=score+desc%2C+metadata_modified+desc" style="color: #FFFFFF;">CSA (Climate-Smart
+                                Agriculture)</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?q=Climate-Smart+Landscapes&sort=score+desc%2C+metadata_modified+desc" style="color: #FFFFFF;">CSL (Climate-Smart
+                                Landscapes)</a></li>
+  
+                        <li><a class="dropdown-item" href="/dataset/?q=Data%2C+Storage%2C+and+Computing+Services&sort=score+desc%2C+metadata_modified+desc" style="color: #FFFFFF;">DSC (Data, Storage, and
+                                Computing Services)</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?q=Migration+under+Natural+Hazard&sort=score+desc%2C+metadata_modified+desc" style="color: #FFFFFF;">MUH (Migration under Natural
+                                Hazard)</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?q=Renewable+and+Clean+Energy&sort=score+desc%2C+metadata_modified+desc" style="color: #FFFFFF;">REN (Renewable and Clean
+                                Energy)</a></li>
+  
+                        <li><a class="dropdown-item" href="/dataset/?q=Scientific+Exchanges%2C+Training%2C+and+Vocation+Courses&sort=score+desc%2C+metadata_modified+desc" style="color: #FFFFFF;">STC (Scientific Exchanges,
+                                Training, and Vocation Courses)</a></li>
+                        <li><a class="dropdown-item" href="/dataset/?q=Timely+Information+on+Climate+Extremes&sort=score+desc%2C+metadata_modified+desc" style="color: #FFFFFF;">TIX (Timely Information on
+                                Climate Extremes)</a></li>
+                    </ul>
+                </li>
+            </ul>
+  
+            {# 
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/login" style="color: #FFFFFF;">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/register" style="color: #FFFFFF;">Register</a>
+                </li>
+            </ul>
+            #}
+
+        </div>
+    </div>
+  </nav>
+  
+  <style>
+    .dropdown-item:hover {
+        background-color: #085686;
+    }
+  
+    .card-header {
+        background-color: #0A77BD;
+        color: #FFFFFF;
+        font-weight: bold;
+        text-align: center;
+    }
+  
+    .navbar-toggler {
+        border-color: white; /* Change the border of the hamburger button to white */
+        box-shadow: none  !important;
+        outline: none  !important;
+    }
+  
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        box-shadow: none  !important;
+        outline: none  !important;
+    }
+    .btn-primary {
+      background-color: #0A77BD;
+      border-color: #0A77BD;
+    }
+    .btn-primary:hover {
+      background-color: #0b6eac;
+      border-color: #0A77BD;
+    }
+    .site-footer {
+      background: #0b6eac;
+    }
+  </style>
+  
+</div>
